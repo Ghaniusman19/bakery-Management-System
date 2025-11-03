@@ -8,14 +8,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
 @Component({
-  selector: 'app-customer-form-modal',
+  selector: 'app-product-form-modal',
   imports: [ReactiveFormsModule],
-  templateUrl: './customer-form-modal.html',
-  styleUrl: './customer-form-modal.css',
+  templateUrl: './product-form-modal.html',
+  styleUrl: './product-form-modal.css',
 })
-export class CustomerFormModal implements OnChanges {
+export class ProductFormModal implements OnChanges {
   @Input() isEdit = false;
   @Input() visible: boolean = false;
   @Input() mode: 'add' | 'edit' = 'add';
@@ -25,6 +24,13 @@ export class CustomerFormModal implements OnChanges {
   @Output() submitForm = new EventEmitter<any>();
 
   customerForm!: FormGroup;
+  categories = [
+    { value: 'electronics', label: 'Electronics' },
+    { value: 'fashion', label: 'Fashion' },
+    { value: 'grocery', label: 'Grocery' },
+    { value: 'home-appliances', label: 'Home Appliances' },
+    { value: 'books', label: 'Books' },
+  ];
 
   constructor(private fb: FormBuilder) {
     console.log('this is our customer data..', this.customerData);
@@ -33,9 +39,9 @@ export class CustomerFormModal implements OnChanges {
     // ✅ Initialize form
     this.customerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.maxLength(11)]],
-      address: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      stock: ['', [Validators.required]],
     });
 
     // ✅ If edit mode, populate form
@@ -43,7 +49,6 @@ export class CustomerFormModal implements OnChanges {
       this.customerForm.patchValue(this.customerData);
     }
   }
-
   close() {
     this.closeModal.emit();
   }

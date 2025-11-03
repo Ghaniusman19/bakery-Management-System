@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth-guard';
 import { Layout } from './core/layout/layout';
 import { Customers } from './pages/customers/customers';
 import { Products } from './pages/products/products';
+import { Orders } from './pages/orders/orders';
 export const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' }, // Default route
   { path: 'login', component: Login },
@@ -26,7 +27,9 @@ export const routes: Routes = [
       },
       {
         path: 'orders',
-        loadComponent: () => import('./pages/orders/orders').then((m) => m.Orders),
+        component: Orders,
+
+        // loadComponent: () => import('./pages/orders/orders').then((m) => m.Orders),
       },
       {
         path: 'reports',
