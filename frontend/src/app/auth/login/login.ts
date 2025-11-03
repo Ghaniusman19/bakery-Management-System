@@ -13,7 +13,8 @@ import { Auth } from '../../services/auth';
 export class Login {
   loginForm: FormGroup;
   router = inject(Router);
-  constructor(private fb: FormBuilder, private authService: Auth) {
+  authService = inject(Auth);
+  constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],

@@ -6,7 +6,7 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { AuthGuard } from './guards/auth-guard';
 import { Layout } from './core/layout/layout';
 import { Customers } from './pages/customers/customers';
-
+import { Products } from './pages/products/products';
 export const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' }, // Default route
   { path: 'login', component: Login },
@@ -21,7 +21,8 @@ export const routes: Routes = [
       { path: 'customers', component: Customers },
       {
         path: 'products',
-        loadComponent: () => import('./pages/products/products').then((m) => m.Products),
+        component: Products,
+        // loadComponent: () => import('./pages/products/products').then((m) => m.Products),
       },
       {
         path: 'orders',

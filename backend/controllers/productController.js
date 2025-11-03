@@ -1,4 +1,5 @@
 import Product from "../models/productModel.js";
+
 export const addProduct = async (req, res) => {
   const { name, category, price, stock } = req.body;
 
@@ -26,6 +27,19 @@ export const addProduct = async (req, res) => {
   }
 };
 
+//get all product
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 }); // latest first
+    res.status(200).json({
+      success: true,
+      total: products.length,
+      products,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 //Delete Product API
 export const deleteProduct = async (req, res) => {
   try {

@@ -1,1 +1,108 @@
-<p>products works!</p>
+<div class="p-6 bg-white rounded-xl shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Products</h2>
+
+  <!-- 🔍 Search Box -->
+  <div class="flex justify-between items-center">
+    <div class="w-full md:w-1/3">
+      <label class="block mb-2 text-sm font-medium text-gray-700">Search Product</label>
+      <div class="relative flex items-center">
+        <!-- <mat-icon class="absolute left-3 text-gray-500">search</mat-icon> -->
+        <input
+          matInput
+          placeholder="Type customer name..."
+          class="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:outline-none transition-all duration-200"
+          style="border-color: #de7e0a; background-color: white; caret-color: #de7e0a"
+          (focus)="$event.target.style.boxShadow = '0 0 0 2px rgba(222, 126, 10, 0.5)'"
+          (blur)="$event.target.style.boxShadow = 'none'"
+        />
+      </div>
+    </div>
+    <!-- <mat-form-field appearance="outline" class="w-full md:w-1/3 flex items-center">
+      <mat-label class="block mb-2 text-sm font-medium text-gray-700">Search by name</mat-label>
+      <input
+        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+        matInput
+        [formControl]="searchControl"
+        placeholder="Type customer name..."
+      />
+    </mat-form-field> -->
+    <button
+      class="px-4 py-2 bg-[#FDF8E9] hover:bg-[#DE7E0A] hover:text-[#FDF8E9] text-[#DE7E0A] rounded-lg shadow-sm transition-all duration-200 text-sm font-medium cursor-pointer"
+    >
+      Filter
+    </button>
+    <button
+      class="px-4 py-2 bg-[#FDF8E9] hover:bg-[#DE7E0A] hover:text-[#FDF8E9] text-[#DE7E0A] rounded-lg shadow-sm transition-all duration-200 text-sm font-medium cursor-pointer"
+    >
+      + Add Product
+    </button>
+  </div>
+  <!-- 🧾 Data Table -->
+  <table mat-table [dataSource]="products()" class="min-w-full border rounded-lg">
+    <!-- Name -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Name</th>
+      <td mat-cell *matCellDef="let products" class="px-4 py-2">
+        {{ products.name }}
+        {{ products._id }}
+      </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Price</th>
+      <td mat-cell *matCellDef="let products" class="px-4 py-2">
+        {{ products.price }}
+      </td>
+    </ng-container>
+
+    <!-- Phone -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Stock</th>
+      <td mat-cell *matCellDef="let products" class="px-4 py-2">
+        {{ products.stock }}
+      </td>
+    </ng-container>
+
+    <!-- Address -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Category</th>
+      <td mat-cell *matCellDef="let products" class="px-4 py-2">
+        {{ products.category }}
+      </td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Actions</th>
+      <td
+        mat-cell
+        *matCellDef="let products"
+        class="px-4 py-4 flex gap-2 items-center justify-center align-middle"
+      >
+        <button
+          mat-button
+          color="primary"
+          class="px-4 py-2 bg-[#FDF8E9] text-[#DE7E0A] rounded-lg shadow-sm transition-all duration-200 text-sm font-medium cursor-pointer"
+        >
+          Edit
+        </button>
+        <button
+          mat-button
+          color="primary"
+          class="px-4 py-2 bg-[#DE7E0A] hover:bg-[#DE7E0A] hover:text-[#FDF8E9] text-white rounded-lg shadow-sm transition-all duration-200 text-sm font-medium cursor-pointer"
+        >
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Table Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <!-- No data case -->
+  @if (products().length === 0) {
+  <p class="text-gray-500 mt-6 text-center">No customers found.</p>
+  }
+</div>

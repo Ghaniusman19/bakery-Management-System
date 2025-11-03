@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import { loginUser, registerUser } from "../controllers/userController.js";
 import {
   addCustomer,
@@ -11,6 +11,7 @@ import {
   addProduct,
   deleteProduct,
   updateProduct,
+  getAllProducts
 } from "../controllers/productController.js";
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.get("/get-customers", protect, getAllCustomers);
 router.get("/search-customers", protect, searchCustomers);
 router.put("/update-customer/:id", protect, updateCustomer);
 router.post("/add-product", protect, addProduct);
+router.get("/get-product", protect, getAllProducts);
 router.delete("/delete-product/:id", protect, deleteProduct);
 router.put("/update-product/:id", protect, updateProduct);
 
