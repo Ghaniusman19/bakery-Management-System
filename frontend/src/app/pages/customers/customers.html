@@ -1,0 +1,104 @@
+<div class="p-6 bg-white rounded-xl shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Customers</h2>
+
+  <!-- 🔍 Search Box -->
+  <div class="flex justify-between items-center">
+    <div class="w-full md:w-1/3">
+      <label class="block mb-2 text-sm font-medium text-gray-700">Search by name</label>
+      <div class="relative flex items-center">
+        <!-- <mat-icon class="absolute left-3 text-gray-500">search</mat-icon> -->
+        <input
+          matInput
+          [formControl]="searchControl"
+          placeholder="Type customer name..."
+          class="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:outline-none transition-all duration-200"
+          style="border-color: #de7e0a; background-color: white; caret-color: #de7e0a"
+          (focus)="$event.target.style.boxShadow = '0 0 0 2px rgba(222, 126, 10, 0.5)'"
+          (blur)="$event.target.style.boxShadow = 'none'"
+        />
+      </div>
+    </div>
+    <!-- <mat-form-field appearance="outline" class="w-full md:w-1/3 flex items-center">
+      <mat-label class="block mb-2 text-sm font-medium text-gray-700">Search by name</mat-label>
+      <input
+        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+        matInput
+        [formControl]="searchControl"
+        placeholder="Type customer name..."
+      />
+    </mat-form-field> -->
+    <button
+      (click)="openAddModal()"
+      class="px-4 py-2 bg-[#FDF8E9] hover:bg-[#DE7E0A] hover:text-[#FDF8E9] text-[#DE7E0A] rounded-lg shadow-sm transition-all duration-200 text-sm font-medium cursor-pointer"
+    >
+      + Add Customer
+    </button>
+  </div>
+  <!-- 🧾 Data Table -->
+  <table mat-table [dataSource]="customers()" class="min-w-full border rounded-lg">
+    <!-- Name -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Name</th>
+      <td mat-cell *matCellDef="let customer" class="px-4 py-2">
+        {{ customer.name }}
+        {{ customer._id }}
+      </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Email</th>
+      <td mat-cell *matCellDef="let customer" class="px-4 py-2">
+        {{ customer.email }}
+      </td>
+    </ng-container>
+
+    <!-- Phone -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Phone</th>
+      <td mat-cell *matCellDef="let customer" class="px-4 py-2">
+        {{ customer.phone }}
+      </td>
+    </ng-container>
+
+    <!-- Address -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Address</th>
+      <td mat-cell *matCellDef="let customer" class="px-4 py-2">
+        {{ customer.address }}
+      </td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="px-4 py-2 text-left">Actions</th>
+      <td mat-cell *matCellDef="let customer" class="px-4 py-2">
+        <button
+          mat-button
+          color="primary"
+          (click)="openEditModal(customer)"
+          class="px-4 py-2 bg-[#FDF8E9] hover:bg-[#DE7E0A] hover:text-[#FDF8E9] text-[#DE7E0A] rounded-lg shadow-sm transition-all duration-200 text-sm font-medium cursor-pointer"
+        >
+          Edit
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Table Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  @if (isModalOpen()) {
+  <app-customer-form-modal
+    [visible]="isModalOpen()"
+    [mode]="modalMode()"
+    [customerData]="selectedCustomer()"
+    (closeModal)="closeModal()"
+    (submitForm)="handleModalSubmit($event)"
+  ></app-customer-form-modal>
+  }
+
+  <!-- No data case -->
+  @if (customers().length === 0) {
+  <p class="text-gray-500 mt-6 text-center">No customers found.</p>
+  }
+</div>

@@ -1,0 +1,53 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="flex w-full max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden">
+    <!-- Left Side Image -->
+    <div
+      class="hidden md:block w-1/2 bg-cover"
+      style="background-image: url('frontend/public/login-page-img.svg')"
+    ></div>
+
+    <!-- Right Side Form -->
+    <div class="w-full md:w-1/2 p-10">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-1">Welcome Back</h2>
+      <p class="text-center text-gray-500 mb-6">Sign in to continue</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-4">
+        <!-- Email -->
+        <div>
+          <label class="block text-gray-700 mb-1">Email</label>
+          <input
+            type="email"
+            formControlName="email"
+            class="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-orange-400"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-gray-700 mb-1">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-orange-400"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <!-- Button -->
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="w-full bg-orange-500 hover:bg-orange-600 transition text-white font-medium py-2 rounded-lg"
+        >
+          Login
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-600 mt-4 cursor-pointer">
+        Don't have an account?
+        <a routerLink="/register" class="text-orange-500 hover:underline">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>

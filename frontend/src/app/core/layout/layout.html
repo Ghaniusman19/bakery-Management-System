@@ -1,0 +1,74 @@
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav
+    #drawer
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)"
+    class="app-sidenav mat-elevation-z3"
+  >
+    <div class="sidenav-header px-4 py-6">
+      <img src="assets/logo.png" alt="logo" class="h-10 mb-2" />
+      <h3 class="text-lg text-white">Bakery Management</h3>
+      <!-- <p class="text-sm text-gray-500">Dashboard</p> -->
+    </div>
+
+    <mat-nav-list>
+      @for (item of menu; track $index) {
+      <a
+        mat-list-item
+        [routerLink]="item.route"
+        routerLinkActive="active-link"
+        (click)="closeOnMobile(drawer)"
+      >
+        <mat-icon matListIcon class="text-white">{{ item.icon }}</mat-icon>
+        <span class="ml-3 text-[#f7e9b2]">{{ item.label }}</span>
+      </a>
+      }
+      <mat-divider></mat-divider>
+
+      <a mat-list-item (click)="logout()" class="logout-btn mt-2">
+        <mat-icon matListIcon>logout</mat-icon>
+        <span class="ml-3">Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Top toolbar -->
+    <mat-toolbar color="primary" class="mat-elevation-z2 top-toolbar">
+      <button
+        mat-icon-button
+        (click)="drawer.toggle()"
+        class="mr-2 block xl:hidden"
+        aria-label="Toggle sidebar"
+      >
+        <mat-icon class="mr-2 block xl:hidden">menu</mat-icon>
+      </button>
+
+      <span class="toolbar-title">Bakery Management System</span>
+
+      <span class="spacer"></span>
+
+      <!-- page-specific search area (emit or use input in child pages) -->
+      <!-- <div class="hidden sm:block mr-4">
+        <input placeholder="Search..." class="search-input" />
+      </div> -->
+
+      <!-- profile menu -->
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item [routerLink]="['/profile']">
+          <mat-icon>person</mat-icon> Profile
+        </button>
+
+        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- main content area -->
+    <div class="app-content p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

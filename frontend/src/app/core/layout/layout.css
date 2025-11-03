@@ -1,0 +1,45 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.app-sidenav {
+  width: 260px;
+  /* background: linear-gradient(180deg, #fff 0%, #fff 100%); */
+  background-color: #6b3d24;
+}
+
+.top-toolbar {
+  background: #f99333; /* your brand color */
+  color: #fff;
+}
+
+.toolbar-title {
+  font-weight: 700;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.app-content {
+  min-height: calc(100vh - 64px);
+}
+
+/* active link */
+.active-link {
+  background: #f99333;
+  border-radius: 6px;
+}
+
+.active-link span {
+  color: white;
+}
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f99333;
+}
+.mat-icon{
+    color: white;
+}
